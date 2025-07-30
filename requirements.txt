@@ -6,3 +6,6 @@ Pillow
 torch
 python-multipart
 jinja2
+PyMuPDF
+scikit-learn
+catboost
