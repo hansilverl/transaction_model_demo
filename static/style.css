@@ -1,12 +1,26 @@
 body {
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   margin: 2em;
   background-color: #f8f8f8;
+}
+h1 {
+  text-align: center;
+  color: #333;
+}
+.sample-buttons button, button {
+  padding: 0.5em 1em;
+  font-size: 1em;
+  cursor: pointer;
 }
 .viewer-container {
   display: flex;
   gap: 2em;
   margin-top: 1em;
+}
+.viewer-container iframe {
+  border: 1px solid #ccc;
+  background: white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 .results-panel {
   width: 45%;
