@@ -1,0 +1,31 @@
+{
+  "categorical_fields": [
+    "from_currency",
+    "to_currency",
+    "fee_currency"
+  ],
+  "numeric_fields": [
+    "amount_before",
+    "amount_converted",
+    "fee",
+    "exchange_rate",
+    "after_fee"
+  ],
+  "model_files": {
+    "from_currency": "from_currency_model.cbm",
+    "to_currency": "to_currency_model.cbm",
+    "fee_currency": "fee_currency_model.cbm",
+    "amount_before": "amount_before_model.cbm",
+    "amount_converted": "amount_converted_model.cbm",
+    "fee": "fee_model.cbm",
+    "exchange_rate": "exchange_rate_model.cbm",
+    "after_fee": "after_fee_model.cbm"
+  },
+  "tfidf_file": "tfidf.pkl",
+  "encoders_files": {
+    "from_currency": "from_currency_label_encoder.pkl",
+    "to_currency": "to_currency_label_encoder.pkl",
+    "fee_currency": "fee_currency_label_encoder.pkl"
+  },
+  "dataset_size": 22
+}
