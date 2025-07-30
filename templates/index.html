@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transaction Data Extraction Model</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+</head>
+<body>
+  <h1>Transaction Data Extraction Model</h1>
+  <form id="uploadForm">
+    <input type="file" id="fileInput" name="file" accept="application/pdf">
+    <button type="submit">Upload</button>
+  </form>
+  <div class="sample-buttons">
+    <button onclick="loadSample('/static/sample1.pdf')">Load Western Union Sample</button>
+    <button onclick="loadSample('/static/sample2.pdf')">Load Bank of America Sample</button>
+  </div>
+  <div class="viewer-container">
+    <iframe id="pdfViewer" width="50%" height="600px"></iframe>
+    <div class="results-panel" id="resultsBox">
+      <h2>Extracted Fields</h2>
+      <pre id="results"></pre>
+      <p class="hint" id="summaryText"></p>
+    </div>
+  </div>
+  <footer>
+    <p>Sample PDFs are provided in accordance with Scribd's document sharing and educational fair use guidelines.</p>
+  </footer>
+  <script src="/static/viewer.js"></script>
+</body>
+</html>

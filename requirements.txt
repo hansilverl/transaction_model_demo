@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+transformers
+pdf2image
+Pillow
+torch
+python-multipart
+jinja2
