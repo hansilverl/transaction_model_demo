@@ -24,4 +24,14 @@ function loadSample(path) {
   pdfViewer.src = path;
   resultsBox.textContent = "Click 'Upload' to analyze this sample document.";
   summaryText.textContent = "";
+
+  // Fetch the sample PDF and populate the file input so it can be uploaded
+  fetch(path)
+    .then((res) => res.blob())
+    .then((blob) => {
+      const file = new File([blob], path.split('/').pop(), { type: 'application/pdf' });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      fileInput.files = dt.files;
+    });
 }
