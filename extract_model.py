@@ -1,7 +1,6 @@
 import os
 import pickle
 from catboost import CatBoostRegressor, CatBoostClassifier
-from sklearn.feature_extraction.text import TfidfVectorizer
 import fitz  # PyMuPDF
 
 MODEL_DIR = "model_artifacts"
@@ -22,8 +21,15 @@ models = {
 with open(os.path.join(MODEL_DIR, "metadata.pkl"), "rb") as f:
     metadata = pickle.load(f)
 
-vectorizer: TfidfVectorizer = metadata["vectorizer"]
-label_encoders = metadata["label_encoders"]  # dict
+# Models were trained directly on raw text features so no vectorizer is needed
+# Older versions of the metadata contained a serialized TfidfVectorizer, but the
+# current model artifacts omit it. Predictions are made by passing the document
+# text directly to each CatBoost model.
+label_encoders = metadata["label_encoders"]  # dict mapping field -> {label_to_int, int_to_label}
+
+def _decode_label(encoder_dict, value):
+    """Decode integer predictions back to their string labels."""
+    return encoder_dict["int_to_label"].get(int(value), "")
 
 def extract_fields_from_pdf(pdf_path):
     # Extract raw text from PDF
@@ -31,23 +37,25 @@ def extract_fields_from_pdf(pdf_path):
     full_text = "\n".join([page.get_text() for page in doc])
     doc.close()
 
-    tfidf_features = vectorizer.transform([full_text])
-
+    # Pass the raw text directly to the models
     result = {
-        "amount_before": float(models["amount_before"].predict(tfidf_features)),
-        "from_currency": label_encoders["from_currency"].inverse_transform(
-            models["from_currency"].predict(tfidf_features).astype(int)
-        )[0],
-        "to_currency": label_encoders["to_currency"].inverse_transform(
-            models["to_currency"].predict(tfidf_features).astype(int)
-        )[0],
-        "exchange_rate": float(models["exchange_rate"].predict(tfidf_features)),
-        "fee": float(models["fee"].predict(tfidf_features)),
-        "fee_currency": label_encoders["fee_currency"].inverse_transform(
-            models["fee_currency"].predict(tfidf_features).astype(int)
-        )[0],
-        "amount_converted": float(models["amount_converted"].predict(tfidf_features)),
-        "after_fee": float(models["after_fee"].predict(tfidf_features)),
+        "amount_before": float(models["amount_before"].predict([full_text])),
+        "from_currency": _decode_label(
+            label_encoders["from_currency"],
+            models["from_currency"].predict([full_text])[0],
+        ),
+        "to_currency": _decode_label(
+            label_encoders["to_currency"],
+            models["to_currency"].predict([full_text])[0],
+        ),
+        "exchange_rate": float(models["exchange_rate"].predict([full_text])),
+        "fee": float(models["fee"].predict([full_text])),
+        "fee_currency": _decode_label(
+            label_encoders["fee_currency"],
+            models["fee_currency"].predict([full_text])[0],
+        ),
+        "amount_converted": float(models["amount_converted"].predict([full_text])),
+        "after_fee": float(models["after_fee"].predict([full_text])),
         "raw_text": full_text[:1000] + "..." if len(full_text) > 1000 else full_text
     }
 
