@@ -17,11 +17,11 @@ form.addEventListener("submit", async (e) => {
   const data = await response.json();
   pdfViewer.src = data.pdf_path;
   resultsBox.textContent = JSON.stringify(data.fields, null, 2);
-  summaryText.textContent = "These extracted values can now be used to compute potential savings based on competitive rates and fees.";
+  summaryText.textContent = "These fields can be used to estimate how much you could save with better rates.";
 });
 
 function loadSample(path) {
   pdfViewer.src = path;
-  resultsBox.textContent = "Click 'Upload' to analyze this sample.";
+  resultsBox.textContent = "Click 'Upload' to analyze this sample document.";
   summaryText.textContent = "";
 }
