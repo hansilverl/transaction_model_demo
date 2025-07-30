@@ -4,34 +4,53 @@ const resultsBox = document.getElementById("results");
 const pdfViewer = document.getElementById("pdfViewer");
 const summaryText = document.getElementById("summaryText");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+async function analyzeCurrentFile() {
+  if (!fileInput.files.length) {
+    resultsBox.textContent = "No file selected.";
+    return;
+  }
+
   const formData = new FormData();
   formData.append("file", fileInput.files[0]);
 
   const response = await fetch("/upload/", {
     method: "POST",
-    body: formData
+    body: formData,
   });
+
+  if (!response.ok) {
+    const err = await response.text();
+    resultsBox.textContent = `Error: ${err}`;
+    pdfViewer.src = "";
+    summaryText.textContent = "";
+    return;
+  }
 
   const data = await response.json();
   pdfViewer.src = data.pdf_path;
   resultsBox.textContent = JSON.stringify(data.fields, null, 2);
-  summaryText.textContent = "These fields can be used to estimate how much you could save with better rates.";
+  summaryText.textContent =
+    "These fields can be used to estimate how much you could save with better rates.";
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  await analyzeCurrentFile();
 });
 
-function loadSample(path) {
+async function loadSample(path) {
   pdfViewer.src = path;
-  resultsBox.textContent = "Click 'Upload' to analyze this sample document.";
+  resultsBox.textContent = "Analyzing sample, please wait...";
   summaryText.textContent = "";
 
-  // Fetch the sample PDF and populate the file input so it can be uploaded
-  fetch(path)
-    .then((res) => res.blob())
-    .then((blob) => {
-      const file = new File([blob], path.split('/').pop(), { type: 'application/pdf' });
-      const dt = new DataTransfer();
-      dt.items.add(file);
-      fileInput.files = dt.files;
-    });
+  const res = await fetch(path);
+  const blob = await res.blob();
+  const file = new File([blob], path.split("/").pop(), {
+    type: "application/pdf",
+  });
+  const dt = new DataTransfer();
+  dt.items.add(file);
+  fileInput.files = dt.files;
+
+  await analyzeCurrentFile();
 }
