@@ -1,6 +1,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  margin: 1em;
+  margin: 0;
+  padding: 0 1em;
   background-color: #f8f8f8;
 }
 
@@ -31,18 +32,24 @@ button {
 }
 
 .viewer-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1em;
   margin-top: 1em;
-  align-items: flex-start;
 }
 
-
-.pdf-panel {
-  flex: 1 1 auto;
+.pdf-panel,
+.results-panel {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 1em;
 }
 
 .pdf-panel iframe {
+  flex: 1;
   width: 100%;
   border: 1px solid #ccc;
   background: white;
@@ -50,17 +57,11 @@ button {
   min-height: 400px;
 }
 
-.results-panel {
-  flex: 0 0 320px;
-  background: white;
-  padding: 1em;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-pre {
+.results-panel pre {
+  flex: 1;
   background: #efefef;
   padding: 0.5em;
-  overflow-x: auto;
+  overflow: auto;
 }
 
 .sample-buttons button {
@@ -86,12 +87,10 @@ footer {
     margin: 0.5em;
   }
   .viewer-container {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
-  iframe {
-    width: 100%;
-  }
+  .pdf-panel,
   .results-panel {
-    width: 100%;
+    height: auto;
   }
 }
