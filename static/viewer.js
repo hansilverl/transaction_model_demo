@@ -3,6 +3,7 @@ const fileInput = document.getElementById("fileInput");
 const resultsBox = document.getElementById("results");
 const pdfViewer = document.getElementById("pdfViewer");
 const summaryText = document.getElementById("summaryText");
+const resultsPanel = document.getElementById("resultsBox");
 
 async function analyzeCurrentFile() {
   if (!fileInput.files.length) {
@@ -31,6 +32,10 @@ async function analyzeCurrentFile() {
   resultsBox.textContent = JSON.stringify(data.fields, null, 2);
   summaryText.textContent =
     "These fields can be translated and used in your application to calculate how much you can save.";
+
+  if (window.innerWidth <= 768) {
+    resultsPanel.scrollIntoView({ behavior: "smooth" });
+  }
 }
 
 form.addEventListener("submit", async (e) => {
