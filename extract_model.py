@@ -158,4 +158,13 @@ def extract_fields_from_pdf(pdf_path):
     heuristics = _heuristic_extract(full_text)
     result.update({k: v for k, v in heuristics.items() if v is not None})
 
+    # If the fee is essentially zero, the amount after fee should match
+    # whichever amount we have available.
+    fee_val = result.get("fee")
+    if fee_val is not None and abs(fee_val) < 1e-6:
+        if result.get("amount_converted") is not None:
+            result["after_fee"] = result["amount_converted"]
+        elif result.get("amount_before") is not None:
+            result["after_fee"] = result["amount_before"]
+
     return result
