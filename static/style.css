@@ -31,14 +31,12 @@ button {
   cursor: pointer;
 }
 
-
 .viewer-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1em;
   margin-top: 1em;
 }
-
 
 .pdf-panel,
 .results-panel {
@@ -55,6 +53,8 @@ button {
   width: 100%;
   border: 1px solid #ccc;
   background: white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  min-height: 400px;
 }
 
 .results-panel pre {
