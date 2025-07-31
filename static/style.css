@@ -31,14 +31,12 @@ button {
   cursor: pointer;
 }
 
-
 .viewer-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1em;
   margin-top: 1em;
 }
-
 
 .pdf-panel,
 .results-panel {
