@@ -37,8 +37,13 @@ button {
   align-items: flex-start;
 }
 
-.viewer-container iframe {
-  flex: 1 1 300px;
+
+.pdf-panel {
+  flex: 1 1 auto;
+}
+
+.pdf-panel iframe {
+  width: 100%;
   border: 1px solid #ccc;
   background: white;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
@@ -46,7 +51,7 @@ button {
 }
 
 .results-panel {
-  flex: 1 1 300px;
+  flex: 0 0 320px;
   background: white;
   padding: 1em;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
@@ -88,6 +93,5 @@ footer {
   }
   .results-panel {
     width: 100%;
-    order: -1;
   }
 }
