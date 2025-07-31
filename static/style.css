@@ -46,6 +46,7 @@ button {
   background: white;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   padding: 1em;
+  min-width: 0;
 }
 
 .pdf-panel iframe {
@@ -53,8 +54,6 @@ button {
   width: 100%;
   border: 1px solid #ccc;
   background: white;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  min-height: 400px;
 }
 
 .results-panel pre {
@@ -62,6 +61,8 @@ button {
   background: #efefef;
   padding: 0.5em;
   overflow: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .sample-buttons button {

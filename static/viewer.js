@@ -30,7 +30,7 @@ async function analyzeCurrentFile() {
   pdfViewer.src = data.pdf_path;
   resultsBox.textContent = JSON.stringify(data.fields, null, 2);
   summaryText.textContent =
-    "These fields show how much you can save when using better rates.";
+    "These fields can be translated and used in your application to calculate how much you can save.";
 }
 
 form.addEventListener("submit", async (e) => {
