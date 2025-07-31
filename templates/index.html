@@ -8,13 +8,20 @@
 </head>
 <body>
   <h1>Transaction Data Extraction Model</h1>
-  <form id="uploadForm">
-    <input type="file" id="fileInput" name="file" accept="application/pdf">
-    <button type="submit">Upload</button>
-  </form>
-  <div class="sample-buttons">
-    <button onclick="loadSample('/static/sample1.pdf')">Load Western Union Sample</button>
-    <button onclick="loadSample('/static/sample2.pdf')">Load Bank of America Sample</button>
+  <p class="instructions">
+    Upload a money transfer PDF to see the extracted fields on the right. You can
+    also load one of the samples below. The file you choose will be sent to the
+    server for analysis and displayed alongside the results.
+  </p>
+  <div class="controls">
+    <form id="uploadForm">
+      <input type="file" id="fileInput" name="file" accept="application/pdf">
+      <button type="submit">Upload</button>
+    </form>
+    <div class="sample-buttons">
+      <button onclick="loadSample('/static/sample1.pdf')">Load Western Union Sample</button>
+      <button onclick="loadSample('/static/sample2.pdf')">Load Bank of America Sample</button>
+    </div>
   </div>
   <div class="viewer-container">
     <iframe id="pdfViewer" width="50%" height="600px"></iframe>
