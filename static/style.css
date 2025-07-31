@@ -32,9 +32,9 @@ button {
 
 .viewer-container {
   display: flex;
-  flex-wrap: wrap;
   gap: 1em;
   margin-top: 1em;
+  align-items: flex-start;
 }
 
 .viewer-container iframe {
@@ -88,5 +88,6 @@ footer {
   }
   .results-panel {
     width: 100%;
+    order: -1;
   }
 }
