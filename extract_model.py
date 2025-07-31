@@ -45,8 +45,13 @@ def _parse_number(num_str: str) -> Optional[float]:
 
 
 def _parse_date(date_str: str) -> Optional[str]:
-    """Parse a date like 8/2/2023 into ISO format."""
-    for fmt in ("%m/%d/%Y", "%d/%m/%Y", "%m/%d/%y", "%d/%m/%y"):
+    """Parse a date like 8/2/2023 into ISO format.
+
+    The PDFs in the dataset are inconsistent about whether the first
+    number represents the day or the month. We try interpreting the
+    value as day-first first, then fall back to month-first."""
+    formats = ["%d/%m/%Y", "%d/%m/%y", "%m/%d/%Y", "%m/%d/%y"]
+    for fmt in formats:
         try:
             return datetime.strptime(date_str, fmt).strftime("%Y-%m-%d")
         except ValueError:
