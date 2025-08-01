@@ -1,9 +1,10 @@
-const form = document.getElementById("uploadForm");
-const fileInput = document.getElementById("fileInput");
-const resultsBox = document.getElementById("results");
-const pdfViewer = document.getElementById("pdfViewer");
-const summaryText = document.getElementById("summaryText");
-const resultsPanel = document.getElementById("resultsBox");
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("uploadForm");
+  const fileInput = document.getElementById("fileInput");
+  const resultsBox = document.getElementById("results");
+  const pdfViewer = document.getElementById("pdfViewer");
+  const summaryText = document.getElementById("summaryText");
+  const resultsPanel = document.getElementById("resultsBox");
 
 async function analyzeCurrentFile() {
   if (!fileInput.files.length) {
@@ -59,3 +60,5 @@ async function loadSample(path) {
 
   await analyzeCurrentFile();
 }
+
+});
